@@ -1,0 +1,13 @@
+// CJS 방식으로 작성
+
+// ===== import =====
+const path = require('path');
+
+module.exports = {
+    //            ↱ databases/configs/sequelize-cli.config.js 로 반환
+    config: path.resolve('databases', 'configs', 'sequelize-cli.config.js'),
+    //                           ↱ model/seeder/mirgation 위치할 경로 설정
+    'models-path': path.resolve('app', 'models'),
+    'seeders-path': path.resolve('databases', 'seeders'),
+    'migrations-path': path.resolve('databases', 'migrations')
+}

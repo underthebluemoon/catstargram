@@ -1,0 +1,40 @@
+/**
+ * @file databases/migrations/20251118-07-fk-posts_user_id.js
+ * @description Add user_id fk constraint on posts
+ * 251118 v1.0.0 mastercat
+ */
+
+import { DataTypes } from 'sequelize';
+
+// 테이블명
+const tableName = 'posts';
+
+// Constraint 명
+const constraintName = 'fk_posts_user_id';
+
+// Constraint 정의
+const options = {
+  fields: ['user_id'],   // constraint 부여할 컬럼
+  type: 'foreign key',   // 적용할 constraint
+  name: constraintName,  // constraint 명
+  references: {          // 참조 설정
+    table: 'users',      // 참조할 테이블
+    field: 'id',         // 참조 컬럼 지정
+  },
+  onDelete: 'CASCADE',  // 참조 컬럼이 삭제되면 post의 레코드 삭제(하드) 됨
+}
+/** @type {import('sequelize-cli').Migration} */
+export default {
+  // up ↔ donw : 세트. 상반되는 반대 처리
+
+  //     ↱ constraint (fk) 추가
+  async up (queryInterface, Sequelize) {
+    await queryInterface.addConstraint(tableName, options);
+  },
+  
+  //     ↱ constraint (fk) 삭제
+  async down (queryInterface, Sequelize) {
+    //                                      ↱ table    ↱ constraint 이름
+    await queryInterface.removeConstraint(tableName, constraintName);
+  }
+};

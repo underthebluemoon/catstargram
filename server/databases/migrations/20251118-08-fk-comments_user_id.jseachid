@@ -1,6 +1,6 @@
 /**
- * @file databases/migrations/20251118-09-fk-comment_post_id.js
- * @description Add post_id fk constraint on comments
+ * @file databases/migrations/20251118-08-fk-comments_user_id.js
+ * @description Add user_id fk constraint on comments
  * 251118 v1.0.0 mastercat
  */
 
@@ -10,15 +10,15 @@ import { DataTypes } from 'sequelize';
 const tableName = 'comments';
 
 // Constraint 명
-const constraintName = 'fk_comments_post_id';
+const constraintName = 'fk_comments_user_id';
 
 // Constraint 정의
 const options = {
-  fields: ['post_id'],   // constraint 부여할 컬럼
+  fields: ['user_id'],   // constraint 부여할 컬럼
   type: 'foreign key',   // 적용할 constraint
   name: constraintName,  // constraint 명
   references: {          // 참조 설정
-    table: 'posts',      // 참조할 테이블
+    table: 'users',      // 참조할 테이블
     field: 'id',         // 참조 컬럼 지정
   },
   onDelete: 'CASCADE',  // 참조 컬럼이 삭제되면 post의 레코드 삭제(하드) 됨

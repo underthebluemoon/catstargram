@@ -6,9 +6,6 @@
  * 251117 v1.0.0 mastercat
  */
 
-
-'use strict';
-
 import { DataTypes } from 'sequelize';
 
 // 테이블명

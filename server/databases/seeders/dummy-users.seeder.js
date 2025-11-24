@@ -26,6 +26,7 @@ export default {
         //                                    ↱ salt: 암호화에 첨가하는 문자 갯수
         password: await bcrypt.hash('qwer1234', 10),
         nick: 'mastercat',
+        provider: 'NONE',
         role: 'SUPER',
         profile: '',
         //  ↱ model 이용 전이므로 createdAt, updatedAt, deletedAt 수기 작성 필요

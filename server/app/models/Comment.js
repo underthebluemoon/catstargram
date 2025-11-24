@@ -94,8 +94,8 @@ const Comment = {
     return define;
   },
   associate: (db) => {
-    db.Comment.belongsTo(db.User, { targetKey: 'id', foreignKey: 'userId', as: 'commentBelongsToUser' });
-    db.Comment.belongsTo(db.Post, { targetKey: 'id', foreignKey: 'postId', as: 'commentBelongsToPost' });
+    db.Comment.belongsTo(db.User, { targetKey: 'id', foreignKey: 'userId', as: 'commentBelongsToUser' });  // author
+    db.Comment.belongsTo(db.Post, { targetKey: 'id', foreignKey: 'postId', as: 'commentBelongsToPost' });  // post
   },
 }
 

@@ -47,6 +47,7 @@ db.sequelize = sequelize; // 생성한 sequelize 인스턴스 db에 저장
 db.User = User.init(sequelize);
 db.Post = Post.init(sequelize);
 db.Like = Like.init(sequelize);
+db.Comment = Comment.init(sequelize);
 db.Push_subscription = Push_subscription.init(sequelize);
 db.Notification = Notification.init(sequelize);
 

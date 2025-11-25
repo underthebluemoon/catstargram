@@ -100,13 +100,16 @@ const attributes = {
   }
 };
 
+// 옵션 정의
 const options = {
   tableName: 'users', // 실제 DB 테이블명
   timestamps: true,   // createdAt, updatedAt를 자동 관리
   paranoid: true,     // soft delete 설정 (deletedAt 자동 관리)
 }
 
+// 모델 정의
 const User = {
+  // 초기화
   init: (sequelize) => {
     const define = sequelize.define(modelName, attributes, options);
 
@@ -122,6 +125,7 @@ const User = {
 
     return define;
   },
+  // 관계
   associate: (db) => {
     db.User.hasMany(db.Post, { sourceKey: 'id', foreignKey: 'userId', as: 'userToPost'});  // posts
     db.User.hasMany(db.Like, { sourceKey: 'id', foreignKey: 'userId', as: 'userToLike'});  // likes

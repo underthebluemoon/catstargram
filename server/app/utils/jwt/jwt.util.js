@@ -12,7 +12,7 @@ import jwt from 'jsonwebtoken';
 /**
  * 
  * @param {{*}} payload 
- * @param {number} ttl - time to limit 유효시간 설정용
+ * @param {number} ttl - time to live 유효시간
  * @returns {string} JWT
  */
 function generateToken(payload, ttl) {

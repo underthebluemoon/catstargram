@@ -10,7 +10,7 @@
 <br>
 
 # 프로젝트 구조
-````
+```
 meerkatgram/
 ├── client/             # Vite + React (PWA)
 │   ├── src/                # React 실행 관련 로직
@@ -45,7 +45,7 @@ meerkatgram/
 │   ├── app.js              # API 엔트리 포인트
 │   └── .env                # 환경 변수 설정 파일
 └── READEME.md
-````
+```
 <br>
 
 # 설치 라이브러리
@@ -57,34 +57,38 @@ npm install -D vite-plugin-pwa
 ````
 
 ### server
-````
+```
 npm init
-npm i express express-validator morgan winston dotenv sequelize sequelize-cli mysql2 cookie-parser jsonwebtoken cors multer swagger-ui-express yaml dayjs bcrypt web-push
-npm install -D nodemon
-````
-- 사용중
-    - express : 프레임워크
-    - express-validator : express에서 사용하는 유효성 검사 라이브러리
-    - dotenv : 환경 설정 파일을 적용하는 라이브러리 (.env)
-    - mysql2 : node.js 환경에서 mysql을 사용할 수 있게 해주는 라이브러리 (mysql❌ mysql2⭕)
-    - sequelize : node.js 환경에서 사용하는 ORM
-    - sequelize-cli : sequelize를 cli로 사용할 수 있게 해주는 라이브러리
-    - nodemon : 개발 단계에 서버 자동 새로고침을 도와주는 라이브러리
-    
-    - dayjs : 날짜 연산 및 포팻 라이브러리
-    - bcrypt : node.js 환경에서 사용하는 단방향 암호화 라이브러리
-    
-    - winston : node.js 환경에서 사용하는 로깅 라이브러리
-    - web-push : 웹 푸시 기능 구현을 위한 라이브러리
-    - cookie-parser : cookie 를 파싱해주는 라이브러리
-    - jsonwebtoken : JWT 생성 및 검증, payload 획득 등 라이브러리
-    - cors : cors 세팅을 도와주는 라이브러리
-    - multer : 파일을 업로드 할 수 있도록 도와주는 라이브러리
+npm i express express-validator morgan winston dotenv sequelize sequelize-cli mysql2 cookie-parser jsonwebtoken cors multer swagger-ui-express yaml dayjs bcrypt web-push swagger-ui-express swagger-parser
+npm install -D nodemon 
+```
+---
+- express : 프레임워크
+- express-validator : express에서 사용하는 유효성 검사 라이브러리
+- dotenv : 환경 설정 파일을 적용하는 라이브러리 (.env)
+- mysql2 : node.js 환경에서 mysql을 사용할 수 있게 해주는 라이브러리 (mysql❌ mysql2⭕)
+- sequelize : node.js 환경에서 사용하는 ORM
+- sequelize-cli : sequelize를 cli로 사용할 수 있게 해주는 라이브러리
+- nodemon : 개발 단계에 서버 자동 새로고침을 도와주는 라이브러리
+---
+- dayjs : 날짜 연산 및 포팻 라이브러리
+- bcrypt : node.js 환경에서 사용하는 단방향 암호화 라이브러리
+---
+- winston : node.js 환경에서 사용하는 로깅 라이브러리
+- cookie-parser : cookie 를 파싱해주는 라이브러리
+- jsonwebtoken : JWT 생성 및 검증, payload 획득 등 라이브러리
+---
+- web-push : 웹 푸시 기능 구현을 위한 라이브러리
+- cors : cors 세팅을 도와주는 라이브러리
+- multer : 파일을 업로드 할 수 있도록 도와주는 라이브러리
+---
+- swagger-ui-express : api 명세서 작성 라이브러리
+- swagger-parser : yaml 번들링 라이브러리
+---
 - 보류
     - morgan : node.js 환경에서 사용하는 http 로깅 라이브러리 enginx로 대체할 수도 있음
-    - swagger-ui-express : api 명세서                                                          
     - faker-js : 랜덤한 데이터를 생성하는 라이브러리
-
+---
 
 # DB 테이블 설계안
 ### users (회원 정보)

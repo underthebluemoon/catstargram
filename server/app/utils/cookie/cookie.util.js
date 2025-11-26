@@ -24,7 +24,7 @@ function setCookie(res, cookieName, cookieValue, ttl, httpOnlyFlg = true, secure
     cookieName,
     cookieValue,
     {
-      expires: dayjs().add(ttl, 'millisecond').toDate(),
+      expires: dayjs().add(ttl, 'second').toDate(),
       httpOnlyFlg: httpOnlyFlg,
       secure: secureFlg,
       samesite: 'none', // none: 도메인 검증× | strict: 같은 도메인만 허용

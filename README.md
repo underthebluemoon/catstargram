@@ -55,6 +55,13 @@ npm create vite@latest .
 npm i dayjs react-router-dom @reduxjs/toolkit react-redux axios jwt-decode
 npm install -D vite-plugin-pwa
 ````
+- dayjs : 날짜 연산 및 포팻 라이브러리
+- react-router-dom :
+- react-redux
+- @reduxtjs/toolkit
+- axios
+- jwt-decode : 브라우저 payload 데이터를 쉽게 받아오는 라이브러리
+- vite-plugin-pwa
 
 ### server
 ```

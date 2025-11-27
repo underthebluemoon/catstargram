@@ -2,6 +2,9 @@ import { createBrowserRouter, redirect, RouterProvider } from "react-router-dom"
 import App from "../App.jsx";
 import Login from "../components/auth/Login.jsx";
 import PostIndex from "../components/posts/PostIndex.jsx";
+import PostCreate from "../components/posts/PostCreate.jsx";
+import UserInfo from "../components/common/UserInfo.jsx";
+import Registration from "../components/users/Registration.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +25,19 @@ const router = createBrowserRouter([
       {
         path: '/posts',
         element: <PostIndex />,
-      }
+      },
+      {
+        path: '/post/create',
+        element: <PostCreate />,
+      },
+      {
+        path: '/registration',
+        element: <Registration />,
+      },
+      {
+        path: '/userinfo/:id',
+        element: <UserInfo />,
+      },
     ]
   }
 ])

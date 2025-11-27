@@ -8,6 +8,7 @@
 | **추가 기능(선택)** | 모바일 카메라 업로드, 지문 인증(WebAuthn)                             |
 
 <br>
+<br>
 
 # 프로젝트 구조
 ```
@@ -46,22 +47,28 @@ meerkatgram/
 │   └── .env                # 환경 변수 설정 파일
 └── READEME.md
 ```
+
+<br>
 <br>
 
 # 설치 라이브러리
+
 ### client
 ````
 npm create vite@latest .
 npm i dayjs react-router-dom @reduxjs/toolkit react-redux axios jwt-decode
 npm install -D vite-plugin-pwa
 ````
-- dayjs : 날짜 연산 및 포팻 라이브러리
-- react-router-dom :
-- react-redux
-- @reduxtjs/toolkit
-- axios
-- jwt-decode : 브라우저 payload 데이터를 쉽게 받아오는 라이브러리
-- vite-plugin-pwa
+| library           |                                              |
+|-------------------|----------------------------------------------|
+| dayjs             | 날짜 연산 및 포팻 라이브러리
+| react-router-dom  |
+| react-redux       |
+| @reduxtjs/toolkit |
+| axios             |
+| jwt-decode        | 브라우저 payload 데이터를 쉽게 받아오는 라이브러리 |
+| vite-plugin-pwa   |
+<br>
 
 ### server
 ```
@@ -69,33 +76,45 @@ npm init
 npm i express express-validator morgan winston dotenv sequelize sequelize-cli mysql2 cookie-parser jsonwebtoken cors multer swagger-ui-express yaml dayjs bcrypt web-push swagger-ui-express swagger-parser
 npm install -D nodemon 
 ```
----
-- express : 프레임워크
-- express-validator : express에서 사용하는 유효성 검사 라이브러리
-- dotenv : 환경 설정 파일을 적용하는 라이브러리 (.env)
-- mysql2 : node.js 환경에서 mysql을 사용할 수 있게 해주는 라이브러리 (mysql❌ mysql2⭕)
-- sequelize : node.js 환경에서 사용하는 ORM
-- sequelize-cli : sequelize를 cli로 사용할 수 있게 해주는 라이브러리
-- nodemon : 개발 단계에 서버 자동 새로고침을 도와주는 라이브러리
----
-- dayjs : 날짜 연산 및 포팻 라이브러리
-- bcrypt : node.js 환경에서 사용하는 단방향 암호화 라이브러리
----
-- winston : node.js 환경에서 사용하는 로깅 라이브러리
-- cookie-parser : cookie 를 파싱해주는 라이브러리
-- jsonwebtoken : JWT 생성 및 검증, payload 획득 등 라이브러리
----
-- web-push : 웹 푸시 기능 구현을 위한 라이브러리
-- cors : cors 세팅을 도와주는 라이브러리
-- multer : 파일을 업로드 할 수 있도록 도와주는 라이브러리
----
-- swagger-ui-express : api 명세서 작성 라이브러리
-- swagger-parser : yaml 번들링 라이브러리
----
-- 보류
-    - morgan : node.js 환경에서 사용하는 http 로깅 라이브러리 enginx로 대체할 수도 있음
-    - faker-js : 랜덤한 데이터를 생성하는 라이브러리
----
+| library            |                                                                         |
+|--------------------|-------------------------------------------------------------------------|
+| express            | 프레임워크
+| express-validator  | express에서 사용하는 유효성 검사 라이브러리
+| dotenv             | 환경 설정 파일을 적용하는 라이브러리 (.env)
+| mysql2             | node.js 환경에서 mysql을 사용할 수 있게 해주는 라이브러리 (mysql❌ mysql2⭕) |
+| sequelize          | node.js 환경에서 사용하는 ORM
+| sequelize-cli      | sequelize를 cli로 사용할 수 있게 해주는 라이브러리
+| nodemon            | 개발 단계에 서버 자동 새로고침을 도와주는 라이브러리
+|                    |        
+| dayjs              | 날짜 연산 및 포팻 라이브러리
+| bcrypt             | node.js 환경에서 사용하는 단방향 암호화 라이브러리
+| winston            | node.js 환경에서 사용하는 로깅 라이브러리
+| cookie-parser      | cookie 를 파싱해주는 라이브러리
+| jsonwebtoken       | JWT 생성 및 검증, payload 획득 등 라이브러리
+|                    |         
+| web-push           | 웹 푸시 기능 구현을 위한 라이브러리
+| cors               | cors 세팅을 도와주는 라이브러리
+| multer             | 파일을 업로드 할 수 있도록 도와주는 라이브러리
+|                    |         
+| swagger-ui-express | api 명세서 작성 라이브러리
+| swagger-parser     | yaml 번들링 라이브러리
+|                    |         
+| 보류                |
+|  morgan            | node.js 환경에서 사용하는 http 로깅 라이브러리 enginx로 대체할 수도 있음
+|  faker-js          | 랜덤한 데이터를 생성하는 라이브러리
+<br>
+
+# 관습적인 CRUD 메소드명
+| 파일명  |                                                       |
+|--------|-------------------------------------------------------|
+|index   | 데이터 조회 처리 ( 리스트 페이지 출력 or 리스트 데이터 획득 ) |
+|show    | 상세 데이터 조회 ( 상세 페이지 or 상세 데이터 획득 )        |
+|create  | 작성 페이지 출력                                        |
+|store   | 새로운 데이터 작성 처리                                  |
+|edit    | 수정 페이지 출력                                        |
+|update  | 데이터 수정 처리                                        |
+|destroy | 데이터 삭제                                             |
+<br>
 
 # DB 테이블 설계안
 ### users (회원 정보)

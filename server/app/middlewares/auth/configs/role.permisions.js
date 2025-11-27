@@ -34,11 +34,11 @@ const ROLE_PERMISSIONS = {
     },
     {
       // /api/file/posts
-      path: /^\/api\/file\/posts$/, roles: [NORMAL, SUPER],
+      path: /^\/api\/files\/posts$/, roles: [NORMAL, SUPER],
     },
     {
       // /api/file/profiles
-      path: /^\/api\/file\/profiles$/, roles: [NORMAL, SUPER],
+      path: /^\/api\/files\/profiles$/, roles: [NORMAL, SUPER],
     },
   ],
   PUT: [

@@ -73,7 +73,7 @@ npm install -D vite-plugin-pwa
 ### server
 ```
 npm init
-npm i express express-validator morgan winston dotenv sequelize sequelize-cli mysql2 cookie-parser jsonwebtoken cors multer swagger-ui-express yaml dayjs bcrypt web-push swagger-ui-express swagger-parser
+npm i express express-validator morgan winston dotenv sequelize sequelize-cli mysql2 cookie-parser jsonwebtoken cors multer swagger-ui-express yaml dayjs bcrypt web-push swagger-ui-express swagger-parser @faker-js/faker
 npm install -D nodemon 
 ```
 | library            |                                                                         |
@@ -85,6 +85,7 @@ npm install -D nodemon
 | sequelize          | node.js 환경에서 사용하는 ORM
 | sequelize-cli      | sequelize를 cli로 사용할 수 있게 해주는 라이브러리
 | nodemon            | 개발 단계에 서버 자동 새로고침을 도와주는 라이브러리
+| @faker-js/faker    | 더미데이터 생성을 도와주는 라이브러리
 |                    |        
 | dayjs              | 날짜 연산 및 포팻 라이브러리
 | bcrypt             | node.js 환경에서 사용하는 단방향 암호화 라이브러리

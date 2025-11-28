@@ -1,7 +1,7 @@
 /**
  * @file app/sevices/auth.service.js
  * @description auth Service
- * 251120 mastercat
+ * 251120 mastercat init
  */
 
 import bcrypt from 'bcrypt';

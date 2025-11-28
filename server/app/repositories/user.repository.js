@@ -19,9 +19,8 @@ async function findByEmail(t = null, email) {
     {
       where: {
         email: email
-      }
-    },
-    { //           ↱ 받은 transaction 들어감 → 이 쿼리 과정을 transaction 처리
+      },
+      //           ↱ 받은 transaction 들어감 → 이 쿼리 과정을 transaction 처리
       transaction: t
     }
   );

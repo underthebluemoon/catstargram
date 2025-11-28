@@ -5,7 +5,7 @@
  */
 
 import { SUCCESS } from "../../configs/responseCode.config.js";
-import authService from "../sevices/auth.service.js";
+import authService from "../services/auth.service.js";
 import cookieUtil from "../utils/cookie/cookie.util.js";
 import { createBaseResponse } from "../utils/createBaseResponse.util.js";
 

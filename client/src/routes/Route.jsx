@@ -11,12 +11,12 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: '/',
+        path: "/",
         loader: async () => {
-          // 'loader'에 정의한 처리는 라우트 진입 시 실행 됨
-          // 'redirect()'를 이용해서 해당 라우터로 이동
-          return redirect('/posts');
-        }
+          // loader에 정의한 처리는 라우트 진입 시 실행 됨
+          // 'rediect()를 이용해서 해당 라우터로 이동
+          return redirect("/posts");
+        },
       },
       {
         path: '/login',
@@ -38,10 +38,10 @@ const router = createBrowserRouter([
         path: '/userinfo/:id',
         element: <UserInfo />,
       },
-    ]
-  }
-])
+    ],
+  },
+]);
 
 export default function Router() {
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 }

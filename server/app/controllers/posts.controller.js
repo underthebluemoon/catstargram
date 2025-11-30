@@ -43,7 +43,33 @@ async function show(req, res, next) {
   }
 }
 
+/**
+ * 게시글 작성 컨트롤러
+ * @param {import("express").Request} req - Request 객체
+ * @param {import("express").Response} res - Response 객체
+ * @param {import("express").NextFunction} next - NextFunction 객체
+ */
+async function create(req, res, next) {
+  console.log(req.user.id);
+  console.log(req.body.content);
+  console.log(req.body.image);
+
+  try {
+    const data = {
+      userId: req.user.id,
+      content: req.body.content,
+      image: req.body.image,
+    }
+    const result = await postsService.create(data)
+
+    return res.status(SUCCESS.status).send(createBaseResponse(SUCCESS, result));
+  } catch(error) {
+    return next(error)
+  }
+}
+
 export default {
   index,
   show,
+  create,
 }

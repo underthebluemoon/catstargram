@@ -23,3 +23,17 @@ export const id = param('id')
   .isNumeric()
   .withMessage('숫자만 허용합니다.')
   .toInt();
+
+export const content = body('content')
+  .trim()
+  .notEmpty()
+  .withMessage('필수 항목입니다.')
+  .bail()
+  .isLength({ min: 1, max: 2000 })
+  .withMessage('2000자를 초과할 수 없습니다.');
+
+export const image = body('image')
+  .optional()
+  .trim()
+  .isLength({ max: 100 })
+  .withMessage('파일 명이 너무 길어요.');

@@ -43,11 +43,25 @@ function authorize(req) {
     //   req.originalUrl,  // 도메인 제외 전체 URL (/api/auth/login?id=1)
     //   req.baseUrl,      // 프리픽스로 묶은 path (/api/auth)
     //   req.path,         // baseUrl 제외 path (/login)
+    //   `${req.baseUrl}${req.path}`,  // 실제 매칭할 경로
     // )
-    return item.path.test(`${req.baseUrl}${req.path}`);
+    
+    // `/`로 끝나는 url의 경우 `/` 삭제
+    const path = req.path.endsWith('/') ? req.path.slice(0, -1) : req.path;
+
+    console.log(
+      // http://localhost:3000/api/auth/login?id=1
+      req.originalUrl,  // 도메인 제외 전체 URL (/api/auth/login?id=1)
+      req.baseUrl,      // 프리픽스로 묶은 path (/api/auth)
+      req.path,         // baseUrl 제외 path (/login)
+      `${req.baseUrl}${path}`,  // 실제 매칭할 경로 (path 변수 사용!)
+    )
+
+    return item.path.test(`${req.baseUrl}${path}`);
   });
 
   // 일치하는 규칙이 있을 시, 인증 및 권한 체크를 실시
+  console.log('matchRole:', matchRole);
   if(matchRole) {
     // 인증 체크 및 인증 정보를 Request 셋
     authenticate(req);

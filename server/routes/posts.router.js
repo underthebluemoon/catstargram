@@ -10,10 +10,12 @@ import indexValidator from '../app/middlewares/validations/validators/posts/inde
 import validationHandler from '../app/middlewares/validations/validationHandler.js';
 import authMiddleware from '../app/middlewares/auth/auth.middleware.js';
 import showValidator from '../app/middlewares/validations/validators/posts/show.validator.js';
+import createValidator from '../app/middlewares/validations/validators/posts/create.validator.js';
 
 const postsRouter = express.Router();
 
 postsRouter.get('/', indexValidator, validationHandler, postsController.index);
 postsRouter.get('/:id', authMiddleware, showValidator, validationHandler, postsController.show);
+postsRouter.post('/', authMiddleware, createValidator, validationHandler, postsController.create);
 
 export default postsRouter;

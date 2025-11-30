@@ -44,7 +44,21 @@ async function findByPk(t= null, id) {
   )
 }
 
+async function create(t=null, data) {
+  return await Post.create(
+    {
+      userId: data.userId,
+      content: data.content,
+      image: data.image,
+    },
+    {
+      transaction: t,
+    }
+  )
+}
+
 export default {
   pagination,
   findByPk,
+  create,
 }

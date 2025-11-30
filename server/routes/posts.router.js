@@ -11,11 +11,13 @@ import validationHandler from '../app/middlewares/validations/validationHandler.
 import authMiddleware from '../app/middlewares/auth/auth.middleware.js';
 import showValidator from '../app/middlewares/validations/validators/posts/show.validator.js';
 import createValidator from '../app/middlewares/validations/validators/posts/create.validator.js';
+import destroyValidator from '../app/middlewares/validations/validators/posts/destroy.validator.js';
 
 const postsRouter = express.Router();
 
 postsRouter.get('/', indexValidator, validationHandler, postsController.index);
 postsRouter.get('/:id', authMiddleware, showValidator, validationHandler, postsController.show);
 postsRouter.post('/', authMiddleware, createValidator, validationHandler, postsController.create);
+postsRouter.delete('/:id', authMiddleware, destroyValidator, validationHandler, postsController.destroy);
 
 export default postsRouter;

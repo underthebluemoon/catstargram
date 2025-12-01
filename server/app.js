@@ -60,7 +60,7 @@ app.use(notFoundRouter);
 // 정적 파일 출력 : html, css
 app.use('/', express.static(process.env.APP_DIST_PATH));
 // Recat 뷰 반환
-//         ↱ (?!1) : 1제외하고
+//         ↱ (?!1) : 1제외하고 → ?!\/files : /files 제외하고
 app.get(/^(?!\/files).*/, (req, res) => {
   return res.sendFile(pathUtil.getViewDirPath());
 })

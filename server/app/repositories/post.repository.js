@@ -26,24 +26,44 @@ async function pagination(t = null, data) {
   );
 }
 
-// 상세 페이지
-async function findByPk(t= null, id) {
+/**
+ * 게시글 ID로 조회(최상위 댓글 포함)
+ * @param {import("sequelize").Transaction|null} t 
+ * @param {import("../services/posts.service.type.js").Id} id 
+ * @returns {Promise<import("../models/Post.js").Post>}
+ */
+async function findByPkWithComments(t = null, id) {
   return await Post.findByPk(
     id,
     {
       include: [
         {
           model: Comment,
-          as: 'postToComment',
+          as: 'comments',
           where: {
             replyId: 0
           },
-          required: false,  // LEFT JOIN 설정 (comment가 없는 post도 가져와야함)
+          required: false, // Left Join 설정
         }
       ],
-      transaction: t,
-    },
-  )
+      transaction: t
+    }
+  );
+}
+
+/**
+ * 게시글 ID로 조회(최상위 댓글 포함)
+ * @param {import("sequelize").Transaction|null} t 
+ * @param {import("../services/posts.service.type.js").Id} id 
+ * @returns {Promise<import("../models/Post.js").Post>}
+ */
+async function findByPk(t = null, id) {
+  return await Post.findByPk(
+    id,
+    {
+      transaction: t
+    }
+  );
 }
 
 // 게시글 작성
@@ -60,23 +80,39 @@ async function create(t=null, data) {
   )
 }
 
-// 게시글 삭제
-async function destroy(t=null, data) {
+// // 게시글 삭제
+// async function destroy(t=null, data) {
+//   return await Post.destroy(
+//     {
+//       where: {
+//         userId: data.userId,
+//         id: data.postId
+//       }
+//     },
+//     {
+//       transaction: t,
+//     }
+//   )
+// }
+
+/**
+ * 게시글 삭제
+ * @param {import("sequelize").Transaction|null} t 
+ * @param {import("../services/posts.service.type.js").Id} id 
+ * @returns {Promise<number>}
+ */
+async function destroy(t = null, id) {
   return await Post.destroy(
     {
-      where: {
-        userId: data.userId,
-        id: data.postId
-      }
-    },
-    {
-      transaction: t,
+      where: { id : id },
+      transaction: t
     }
-  )
+  );
 }
 
 export default {
   pagination,
+  findByPkWithComments,
   findByPk,
   create,
   destroy,

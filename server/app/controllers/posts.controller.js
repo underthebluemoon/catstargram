@@ -49,10 +49,10 @@ async function show(req, res, next) {
  * @param {import("express").Response} res - Response 객체
  * @param {import("express").NextFunction} next - NextFunction 객체
  */
-async function create(req, res, next) {
-  console.log(req.user.id);
-  console.log(req.body.content);
-  console.log(req.body.image);
+async function store(req, res, next) {
+  // console.log(req.user.id);
+  // console.log(req.body.content);
+  // console.log(req.body.image);
 
   try {
     const data = {
@@ -92,6 +92,6 @@ async function destroy(req, res, next) {
 export default {
   index,
   show,
-  create,
+  store,
   destroy,
 }

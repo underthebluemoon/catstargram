@@ -32,6 +32,23 @@ function setCookie(res, cookieName, cookieValue, ttl, httpOnlyFlg = true, secure
   );
 }
 
+/**
+ * 특정 쿠키 획득(쿠키 미존재 시 빈문자열 반환)
+ * @param {import('express').Request} req 
+ * @param {string} cookieName 
+ * @returns {string}
+ */
+function getCookie(req, cookieName) {
+  let cookieValue = '';
+
+  if(req.cookies) {
+    // cookieName이 없는 경우, undefined → cookieValue = ''
+    cookieValue = req.cookies[cookieName];
+  }
+
+  return cookieValue;
+}
+
 // --------------------
 // ||     public     ||
 // --------------------
@@ -51,6 +68,17 @@ function setCookieRefreshToken(res, refreshToken) {
   )
 }
 
+/**
+ * 쿠키에tj RefreshToken 획득
+ * @param {import("express").Response} res 
+ * @param {string} refreshToken 
+ */
+function getCookieRefreshToken(req) {
+
+  return getCookie(req, process.env.JWT_REFRESH_TOKEN_COOKIE_NAME);
+}
+
 export default {
   setCookieRefreshToken,
+  getCookieRefreshToken,
 }

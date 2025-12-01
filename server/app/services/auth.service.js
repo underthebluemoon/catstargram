@@ -7,7 +7,7 @@
 import bcrypt from 'bcrypt';
 import userRepository from "../repositories/user.repository.js";
 import myError from '../errors/customs/my.error.js';
-import { NOT_REGISTERED_ERROR } from '../../configs/responseCode.config.js';
+import { NOT_REGISTERED_ERROR, REISSUE_ERROR } from '../../configs/responseCode.config.js';
 import jwtUtil from '../utils/jwt/jwt.util.js';
 import db from '../models/index.js';
 
@@ -54,6 +54,44 @@ async function login(body) {
   });
 }
 
+// reissue
+/**
+ * 토큰 재발급 처리
+ * @param {string} token 
+ * @returns 
+ */
+async function reissue(token) {
+  // 토큰 검증 및 유저 id 획득
+  //     ↱ payload 반환
+  const claims = jwtUtil.getClaimswithVerifyToken(token)
+  const userId = claims.sub;
+
+  return await db.sequelize.transaction(async t => {
+    // 유저 정보 획득
+    const user = await userRepository.findByPk(t, userId);
+
+    // 토큰 일치 검증
+    if(token !== user.refreshToken) {
+      throw myError('리프레시 토큰 불일치', REISSUE_ERROR);
+    }
+
+    // JWT 생성 - 액세스 토큰, 리프레시 토큰
+    const accessToken = jwtUtil.generateAccessToken(user);
+    const refreshToken = jwtUtil.generateRefreshToken(user);
+
+    // 리프레시 토큰 DB 에 저장 - 기존 user 모델에 새로 발급한 리프레시 토큰으로 교체
+    user.refreshToken = refreshToken;
+    await userRepository.save(t, user);
+
+    return {
+      accessToken,
+      refreshToken,
+      user,
+    };
+  })
+}
+
 export default {
   login,
+  reissue,
 }

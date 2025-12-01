@@ -4,10 +4,11 @@
  * 251128 v1.0.0 mastercat
  */
 
-import { body, param } from "express-validator";
+import { body, param, query } from "express-validator";
 
 // 페이지 필드
-export const page = body('page')
+//                   ↱ query parameter
+export const page = query('page')
   .trim()
   .optional()                      // 선택사항
   .isNumeric()

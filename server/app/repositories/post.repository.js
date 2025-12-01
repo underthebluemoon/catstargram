@@ -10,7 +10,24 @@ const { sequelize, Post, Comment } = db;
 // 페이지 네이션
 async function pagination(t = null, data) {
   // SELECT * FROM posts LIMIT 6 OFFSET 6*?
-  return await Post.findAll(
+
+  // return await Post.findAll(
+  //   {
+  //     order: [
+  //       ['createdAt', 'DESC'],
+  //       ['updatedAt', 'DESC'],
+  //       ['id', 'ASC'],
+  //     ],
+  //     limit: data.limit,
+  //     offset: data.offset,
+  //   },
+  //   {
+  //     transaction: t,
+  //   }
+  // );
+
+  // count + 검색한 레코드
+  return await Post.findAndCountAll(
     {
       order: [
         ['createdAt', 'DESC'],
@@ -19,10 +36,8 @@ async function pagination(t = null, data) {
       ],
       limit: data.limit,
       offset: data.offset,
-    },
-    {
       transaction: t,
-    }
+    },
   );
 }
 

@@ -4,3 +4,10 @@
   align-items: center;
   gap: 20px;
 }
+
+.greenBorder {
+  border-color: green;
+}
+.redBorder {
+  border-color: red;
+}

@@ -1,8 +1,10 @@
+import { useSelector } from "react-redux";
 import "./UserInfo.css";
 import { useNavigate } from 'react-router-dom';
 
 export default function UserInfo() {
   const navigate = useNavigate();
+  const { user } = useSelector(state => state.auth);
 
   function redirectPosts() {
     navigate('./posts');
@@ -10,17 +12,20 @@ export default function UserInfo() {
   function redirectPostCreate() {
     navigate('./posts/create');
   }
+  function redirectUserInfo() {
+    navigate(`/users/${user?.id}`);
+  }
 
   return (
     <>
       <div className="user-info-container bottom-line">
         <div
           className="profile profile-medium"
-          style={{ backgroundImage: `url("/dev/kanna.jpg")` }}
+          style={{ backgroundImage: `url("${user?.profile}")` }}
         ></div>
         <div className="user-info-controll-box">
           <div className="user-info-stat-items">
-            <p className="user-info-stat-name">Kanna_kamui</p>
+            <p className="user-info-stat-name">{user?.nick}</p>
             <p className="user-info-stat-etc">posts 1911</p>
           </div>
           <div className="user-info-btn-items">
@@ -38,6 +43,7 @@ export default function UserInfo() {
             <div
               className="user-info-btn"
               style={{ backgroundImage: `url("/icons/btn-user-index.png")` }}
+              onClick={redirectUserInfo}
             ></div>
           </div>
         </div>

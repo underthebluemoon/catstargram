@@ -1,12 +1,26 @@
 import "./Header.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import UserInfo from "./UserInfo.jsx";
+import { useSelector } from "react-redux";
 
 export default function Header() {
+  const navigate = useNavigate();
   const location = useLocation();
+  const { isLoggedIn } = useSelector(state => state.auth)
+
   const onlyTitleList = ["/login", "/registration"];
   const onlyTitleFlg = onlyTitleList.some((path) => path === location.pathname);
-  const authFlg = !onlyTitleFlg && true;
+
+  function redirectLogin() {
+    navigate(`/login`);
+  }
+  function redirectRegistration() {
+    navigate(`/registration`);
+  }
+  function redirectPosts() {
+    navigate(`/posts`);
+  }
+
 
   return (
     <>
@@ -14,21 +28,30 @@ export default function Header() {
         <div
           className={` ${(onlyTitleFlg && "header-top") || "header-top-grid"}`}
         >
-          <h1 className={`${(onlyTitleFlg && "header-top-title-only") || ""}`}>
-            Meerkagram
+          <h1 
+            className={`${(onlyTitleFlg && "header-top-title-only") || ""}`}
+            onClick={redirectPosts}
+          >
+            CatStargram
           </h1>
           {!onlyTitleFlg && (
             <div className="header-top-btn-box">
-              {(authFlg && (
+              {(isLoggedIn && (
                 <button type="button" className="btn-small bg-dark">
                   Logout
                 </button>
               )) || (
                 <>
-                  <button type="button" className="btn-small bg-gray">
+                  <button 
+                    type="button" className="btn-small bg-gray"
+                    onClick={redirectLogin}
+                  >
                     Sign In
                   </button>
-                  <button type="button" className="btn-small bg-light">
+                  <button 
+                    type="button" className="btn-small bg-light"
+                    onClick={redirectRegistration}
+                  >
                     Sign Up
                   </button>
                 </>
@@ -36,7 +59,7 @@ export default function Header() {
             </div>
           )}
         </div>
-        {authFlg && <UserInfo />}
+        { isLoggedIn && <UserInfo /> }
       </div>
     </>
   );

@@ -1,6 +1,16 @@
 import "./UserInfo.css";
+import { useNavigate } from 'react-router-dom';
 
 export default function UserInfo() {
+  const navigate = useNavigate();
+
+  function redirectPosts() {
+    navigate('./posts');
+  }
+  function redirectPostCreate() {
+    navigate('./posts/create');
+  }
+
   return (
     <>
       <div className="user-info-container bottom-line">
@@ -17,10 +27,13 @@ export default function UserInfo() {
             <div
               className="user-info-btn"
               style={{ backgroundImage: `url("/icons/btn-post-index.png")` }}
+              onClick={redirectPosts}
+
             ></div>
             <div
               className="user-info-btn"
               style={{ backgroundImage: `url("/icons/btn-add.png")` }}
+              onClick={redirectPostCreate}
             ></div>
             <div
               className="user-info-btn"

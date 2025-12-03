@@ -68,7 +68,7 @@ async function store(req, res, next) {
       content: req.body.content,
       image: req.body.image,
     }
-    const result = await postsService.create(data)
+    const result = await postsService.store(data)
 
     return res.status(SUCCESS.status).send(createBaseResponse(SUCCESS, result));
   } catch(error) {

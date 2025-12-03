@@ -1,14 +1,35 @@
 import "./PostCreate.css";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom"
+import { postImageUploadThunk } from "../../store/thunks/postCreateThunk.js";
+import { postStoreThunk } from "../../store/thunks/postCreateThunk.js";
 
 export default function PostCreate() {
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [content, setContent] = useState('');
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState('');
 
   async function handleCreate(e) {
     e.preventDefault();
+
+    try {
+      // 파일 업로드 처리
+      const resultUpload = await dispatch(postImageUploadThunk(file)).unwrap();
+        // 파일 업로드 url 획득
+      const image = resultUpload.data.path
+
+      // 게시글 작성
+      const resultStore = await dispatch(postStoreThunk({ content, image })).unwrap();
+
+      // 작성한 게시글 상세로 이동
+      return navigate(`/posts/show/${resultStore.data.id}`, {replace: true});
+    } catch (error) {
+      console.log('게시글 생성 오류: ', error);
+      return alert('게시글 생성 실패');
+    }
   }
 
   // 파일 변경 시 처리 함수
@@ -45,9 +66,7 @@ export default function PostCreate() {
           )
         }
         
-        <button type="submit" className="btn-big bg-gray">
-          Write
-        </button>
+        <button type="submit" className="btn-big bg-gray">Write</button>
       </form>
     </>
   );

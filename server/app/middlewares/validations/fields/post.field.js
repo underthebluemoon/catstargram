@@ -1,7 +1,7 @@
 /**
  * @file app/middlewares/validations/fields/post.field.js
  * @description 게시글 유효성 검사 필드
- * 251128 v1.0.0 mastercat
+ * 251128 v1.0.0 mastercat init
  */
 
 import { body, param, query } from "express-validator";
@@ -32,7 +32,7 @@ export const id = param('id')
 export const content = body('content')
   .trim()
   .notEmpty()
-  .withMessage('필수 항목입니다.')
+  .withMessage('내용은 필수 항목입니다.')
   .bail()
   .isLength({ min: 1, max: 2000 })
   .withMessage('2000자를 초과할 수 없습니다.');

@@ -5,7 +5,7 @@
  */
 
 import db from '../models/index.js';
-const { sequelize, Post, Comment } = db;
+const { sequelize, Post, Comment, User } = db;
 
 // 페이지 네이션
 async function pagination(t = null, data) {
@@ -54,11 +54,32 @@ async function findByPkWithComments(t = null, id) {
       include: [
         {
           model: Comment,
-          as: 'comments',
+          as: 'postToComment',  // post -> comment
           where: {
             replyId: 0
           },
           required: false, // Left Join 설정
+          include: [
+            {
+              attributes: [ 'nick', 'profile' ],
+              model: User,  // comment -> user
+              as: 'commentBelongsToUser',
+              required: true,  // inner join 설정
+            },
+            {
+              model: Comment,
+              as: 'replies',  // comment -> comment
+              required: false,  // Left join 설정
+              include: [
+                {
+                  attributes: [ 'nick', 'profile' ],
+                  model: User,  // comment -> user
+                  as: 'commentBelongsToUser',
+                  required: true,  // inner join 설정
+                },
+              ]
+            }
+          ]
         }
       ],
       transaction: t
@@ -67,7 +88,7 @@ async function findByPkWithComments(t = null, id) {
 }
 
 /**
- * 게시글 ID로 조회(최상위 댓글 포함)
+ * 게시글 ID로 조회
  * @param {import("sequelize").Transaction|null} t 
  * @param {import("../services/posts.service.type.js").Id} id 
  * @returns {Promise<import("../models/Post.js").Post>}

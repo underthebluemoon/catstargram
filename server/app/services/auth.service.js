@@ -4,12 +4,16 @@
  * 251120 mastercat init
  */
 
+import axios from 'axios';
 import bcrypt from 'bcrypt';
 import userRepository from "../repositories/user.repository.js";
 import myError from '../errors/customs/my.error.js';
 import { NOT_REGISTERED_ERROR, REISSUE_ERROR } from '../../configs/responseCode.config.js';
 import jwtUtil from '../utils/jwt/jwt.util.js';
 import db from '../models/index.js';
+import socialKakaoUtil from '../utils/social/social.kakao.util.js';
+import PROVIDER from '../middlewares/auth/configs/provider.enum.js';
+import ROLE from '../middlewares/auth/configs/role.enum.js';
 
 //                    ↱ 유저가 보내는 데이터
 async function login(body) {
@@ -91,7 +95,84 @@ async function reissue(token) {
   })
 }
 
+/**
+ * 
+ * @param {*} code 
+ */
+async function socialKakao(code) {
+  // 토큰 획득 요청에 필요한 헤더와 바디 생성
+  const tokenRequest = socialKakaoUtil.getTokenRequest(code);
+
+  // 1. 토큰 획득 요청
+  const resultToken = await axios.post(
+    process.env.SOCIAL_KAKAO_API_URL_TOKEN, 
+    tokenRequest.searchParams, 
+    { headers: tokenRequest.headers }
+  )
+  const { access_token } = resultToken.data;
+  // console.log('Access Token:', access_token);
+
+  // 2. 토큰으로 사용자 정보 획득 (카카오에서 주는)
+  const userRequest = socialKakaoUtil.getUserRequest(access_token);
+  const resultUser = await axios.post(
+    process.env.SOCIAL_KAKAO_API_URL_USER_INFO, 
+    userRequest.searchParams, 
+    { headers: userRequest.headers }
+  );
+  const kakaoId = resultUser.data.id;
+  const email = resultUser.data.kakao_account.email;
+  const profile = resultUser.data.kakao_account.profile.thumbnail_image_url;
+    //   ↳ 카카오 서버로 부터 다운로드 받아서 profile 폴더에 보관해야함
+  const nick = resultUser.data.kakao_account.profile.nickname;
+  // console.log('사용자 정보:', kakaoId, email, profile, nick)
+
+  // 트랜잭션
+  const refreshToken = db.sequelize.transaction(async t => {
+    // 3. 사용자 정보로 가입한 회원인지 체크
+    let user = await userRepository.findByEmail(t, email);
+
+    if(!user) {
+      // 3-1. 미가입 회원 -> 회원가입 처리
+      const data = {
+        email,
+        profile,
+        nick,
+        password: bcrypt.hashSync(crypto.randomUUID(), 10),
+        provider: PROVIDER.KAKAO,
+        role : ROLE.NORMAL,
+      };
+      user = await userRepository.create(t, data);
+    } else {
+      // 3-2. provider 확인하고 카카오 아니면 변경
+      if(user.provider !== PROVIDER.KAKAO) {
+        user.provider = PROVIDER.KAKAO;
+      }
+    }
+    
+    // 3-3. 우리 리프레시 토큰 생성 (토큰 체크 및 정보 추출 불가)
+    const refreshToken = jwtUtil.generateRefreshToken(user);
+    
+    // 리프레시 토큰 저장 및 리턴
+    user.refreshToken = refreshToken;
+    await userRepository.save(t, user);
+
+    return refreshToken;
+  });
+
+  // 4. 카카오 로그아웃
+  const logoutRequest = socialKakaoUtil.getLogoutRequest(kakaoId, access_token);
+  await axios.post(
+    process.env.SOCIAL_KAKAO_API_URL_LOGOUT,
+    logoutRequest.searchParams,
+    { headers: logoutRequest.headers }
+  )
+
+  // 5. 최종적으로 우리 리프레시 토큰 반환
+  return refreshToken;
+}
+
 export default {
   login,
   reissue,
+  socialKakao,
 }

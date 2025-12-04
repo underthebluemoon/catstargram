@@ -6,6 +6,7 @@ import UserInfo from "../components/users/UserInfo.jsx";
 import PostIndex from "../components/posts/PostIndex.jsx";
 import PostShow from "../components/posts/PostShow.jsx";
 import PostCreate from "../components/posts/PostCreate.jsx";
+import Social from "../components/auth/Social.jsx";
 
 const router = createBrowserRouter([
   {
@@ -14,8 +15,8 @@ const router = createBrowserRouter([
       {
         path: "/",
         loader: async () => {
-          // loader에 정의한 처리는 라우트 진입 시 실행 됨
-          // 'rediect()를 이용해서 해당 라우터로 이동
+          // 'loader'에 정의한 처리는 라우트 진입 시 실행 됨
+          // 'rediect()'를 이용해서 해당 라우터로 이동
           return redirect("/posts");
         },
       },
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
         element: <PostShow />,
       },
     ],
+  },
+  {
+    path: '/callback/social',
+    element: <Social />,
   },
 ]);
 

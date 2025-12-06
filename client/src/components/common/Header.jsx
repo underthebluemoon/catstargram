@@ -1,11 +1,16 @@
 import "./Header.css";
+
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from "react-router-dom";
+
 import UserInfo from "./UserInfo.jsx";
-import { useSelector } from "react-redux";
+import { logoutThunk } from '../../store/thunks/authThunk.js';
+import { clearAuth } from '../../store/slices/authSlice.js';
 
 export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   const { isLoggedIn } = useSelector(state => state.auth)
 
   const onlyTitleList = ["/login", "/registration"];
@@ -21,6 +26,18 @@ export default function Header() {
     navigate(`/posts`);
   }
 
+  async function logout() {
+    try {
+      navigate('/posts');
+      const result = await dispatch(logoutThunk());
+      if(result.type.endsWith('/rejected')) {
+        throw result.payload;
+      }
+      dispatch(clearAuth());
+    } catch(error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
@@ -37,7 +54,7 @@ export default function Header() {
           {!onlyTitleFlg && (
             <div className="header-top-btn-box">
               {(isLoggedIn && (
-                <button type="button" className="btn-small bg-dark">
+                <button type="button" className="btn-small bg-dark" onClick={logout}>
                   Logout
                 </button>
               )) || (

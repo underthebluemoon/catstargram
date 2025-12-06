@@ -16,6 +16,7 @@ const authRouter = express.Router();
 //          ↱ 로그인 : 인증 정보 생성 - post
 //                         ↱ 유효성 체크    ↱ 에러 핸들러        ↱ 컨트롤러
 authRouter.post('/login', loginValidator, validationHandler, authController.login);
+authRouter.post('/logout', authMiddleware, authController.logout);
   // 이미 액세스 토큰이 만료되어 인증 절차 불가능 : 재발급 때는 액세스 토큰으로 인증 체크 X
   // validatoion 체크도 불 필요
 authRouter.post('/reissue', authController.reissue);

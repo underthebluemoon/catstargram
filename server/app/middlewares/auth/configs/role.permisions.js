@@ -21,6 +21,10 @@ const ROLE_PERMISSIONS = {
   ],
   POST: [
     {
+      // /api/auth/logout
+      path: /^\/api\/auth\/logout$/, roles: [NORMAL, SUPER]
+    },
+    {
       // /api/auth/reissue
       path: /^\/api\/auth\/reissue$/, roles: [NORMAL, SUPER],
     },

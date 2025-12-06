@@ -5,7 +5,11 @@
  */
 
 import { body, param } from "express-validator";
+import path from 'path';
+import fs from 'fs';
+
 import PROVIDER from "../../auth/configs/provider.enum.js";
+import pathUtil from "../../../utils/path/path.util.js";
 
 // ===== 개별 export =====
 
@@ -40,11 +44,62 @@ const email = body('email')
 const password = body('password')
   .trim()
   .notEmpty()
-  .withMessage('비밀번호는 필수 항목입니다.')
+  .withMessage('필수 항목입니다.')
   .bail()
   .matches(/^[a-zA-Z0-9!@#$]{8,20}$/)
   .withMessage('영어 대/소문자·숫자·!·@·#·$, 8~20자 입력 가능합니다.')
 ;
+
+// 비밀번호 체크
+const passwordChk = body('passwordChk')
+  .trim()
+  .custom((val, {req}) => {
+    if(val !== req.body.password) {
+      return false;
+    }
+    return true;
+  })
+  .withMessage('비밀번호와 비밀번호 체크가 다릅니다.')
+;
+
+// 닉네임
+const nick = body('nick')
+  .trim()
+  .notEmpty()
+  .withMessage('필수 항목입니다.')
+  .bail()
+  .matches(/^[a-zA-Z0-9가-힣_]{3,20}$/)
+  .withMessage('영어대소문자·숫자·한글·_ 3~20자 허용')
+;
+
+// 프로필 이미지
+export const profile = body('profile')
+  .trim()
+  .notEmpty()
+  .withMessage('이미지는 필수 항목입니다.')
+  .bail()
+  .custom(val => {
+    // 우리 앱의 게시글 이미지에 접근하는 `도메인 + path`가 맞는지 확인
+    if(!val.startsWith(`${process.env.APP_URL}${process.env.ACCESS_FILE_USER_PROFILE_PATH}`)) {
+      return false;
+    }
+
+    return true;
+  })
+  .withMessage('허용하지 않는 이미지 경로입니다.')
+  .bail()
+  .custom(val => {
+    // 실제 이미지 파일이 있는지 검증 처리
+    const splitPath = val.split('/');
+    const fullPath = path.join(pathUtil.getProfilesImagePath(), splitPath[splitPath.length - 1]);
+
+    if(!fs.existsSync(fullPath)) {
+      return false;
+    }
+
+    return true;
+  })
+  .withMessage('존재하지 않는 이미지 경로입니다.');
 
 const provider = param('provider')
   .trim()
@@ -61,4 +116,7 @@ export default {
   email,
   password,
   provider,
+  passwordChk,
+  profile,
+  nick,
 };

@@ -59,7 +59,7 @@ export default function(req, res, next) {
     limit: {
       fileSize: parseInt(process.env.FILE_USER_PROFILE_SIZE),
     },
-  }).single('image');
+  }).single('profile');
 
   // upload 실행
   // 예외 처리 필요 : 에러 핸들러에 캐칭되지 않는 것 고려

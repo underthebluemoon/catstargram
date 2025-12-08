@@ -1,0 +1,10 @@
+import webpush from 'web-push';
+
+//       ↱ push 설정 
+webpush.setVapidDetails(
+  process.env.JWT_ISSUER,
+  process.env.VAPID_PUBLIC_KEY,
+  process.env.VAPID_PRIVATE_KEY,
+);
+
+export default webpush;

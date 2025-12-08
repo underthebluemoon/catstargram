@@ -16,6 +16,7 @@ import postsRouter from './routes/posts.router.js';
 import filesRouter from './routes/files.router.js';
 import commentsRouter from './routes/comments.router.js';
 import notFoundRouter from './routes/notFound.router.js'
+import subscriptionsRouter from './routes/subscriptions.router.js';
 
 import errorHandler from './app/errors/errorHandler.js';
 
@@ -53,6 +54,7 @@ app.use('/api/posts', postsRouter);
 app.use('/api/files', filesRouter);
 app.use('/api/comments', commentsRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/subscriptions', subscriptionsRouter);
 
 // ------------------------------------------
 // ||     404 처리

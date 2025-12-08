@@ -41,9 +41,12 @@ const ROLE_PERMISSIONS = {
       path: /^\/api\/files\/posts$/, roles: [NORMAL, SUPER],
     },
     // {
-    //   // /api/file/profiles
+    //   // /api/file/profiles -> 회원가입에 프로필파일은 권한 불필요
     //   path: /^\/api\/files\/profiles$/, roles: [NORMAL, SUPER],
     // },
+    {
+      path: /^\/api\/subscriptions$/, roles: [NORMAL, SUPER],
+    },
   ],
   PUT: [
     {

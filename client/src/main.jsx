@@ -5,6 +5,7 @@ import Router from './routes/Route.jsx';
 import { Provider } from 'react-redux';
 import store from './store/store.js';
 import { injectStoreInAios } from './api/axiosInstance.js';
+import swRegister from './swRegister.js';
 
 createRoot(document.getElementById('root')).render(
     <Provider store={store}>
@@ -13,3 +14,6 @@ createRoot(document.getElementById('root')).render(
 );
 
 injectStoreInAios(store);
+
+// 서비스 워커 등록
+swRegister();

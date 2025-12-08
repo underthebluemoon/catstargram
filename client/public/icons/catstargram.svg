@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 457 357.12">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-1, .cls-3, .cls-4 {
+        stroke: #333;
+        stroke-width: 10px;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        stroke-linecap: round;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke-linejoin: round;
+      }
+
+      .cls-2 {
+        stroke: #666;
+        stroke-width: 8px;
+      }
+
+      .cls-3 {
+        fill: #333;
+      }
+
+      .cls-4 {
+        stroke-miterlimit: 10;
+      }
+    </style>
+  </defs>
+  <title>catstargram</title>
+  <g id="Layer_1" data-name="Layer 1">
+    <path class="cls-1" d="M39.16,304s-6.93-74.11,18.17-89.94c0,0,27.37-3,57.24,44.09,0,0,37.92-13.42,67-10.18" transform="translate(-32 -62.38)"/>
+    <path class="cls-1" d="M256,259.8s30.58-55.8,70.69-43.43c0,0,17.26,19.87,12.16,90.89" transform="translate(-32 -62.38)"/>
+  </g>
+  <g id="Layer_5" data-name="Layer 5">
+    <path class="cls-1" d="M382.07,403.18s50.12-38.8,61.43-82.45,16.17-132.57-79.22-153.59S268.9,97.62,272.13,83.07c1.67-7.52,5.07-12,9.3-14.16,6-3,12.57-.68,13.34-.39,12.06,4.52,9.63,20.57,19.4,35.57,7,10.7,20.27,16.29,46.88,27.48,27.33,11.5,33.17,9.6,51.74,19.4,1.23.65,21.9,11.73,37.18,27.49,34,35,34.41,86,33.95,101.85a220.36,220.36,0,0,1-29.1,88.92,217.19,217.19,0,0,1-35.57,45.27" transform="translate(-32 -62.38)"/>
+  </g>
+  <g id="Layer_4" data-name="Layer 4">
+    <path class="cls-2" d="M126.54,350.13s-27.49-11.32-79.22-8.08" transform="translate(-32 -62.38)"/>
+    <path class="cls-2" d="M131.39,376S55.4,387.31,36,403.48" transform="translate(-32 -62.38)"/>
+    <path class="cls-2" d="M250.84,349.31s37.66-18.46,65-12.91" transform="translate(-32 -62.38)"/>
+    <path class="cls-2" d="M251,376s46.89-3.24,87.31,17.78" transform="translate(-32 -62.38)"/>
+  </g>
+  <g id="Layer_3" data-name="Layer 3">
+    <path class="cls-3" d="M180.88,349.19s7-5.63,16.88,0C197.76,349.19,190.73,374.52,180.88,349.19Z" transform="translate(-32 -62.38)"/>
+  </g>
+  <g id="Layer_2" data-name="Layer 2">
+    <path class="cls-4" d="M100,318.28s31.4,0,54.07,10.53" transform="translate(-32 -62.38)"/>
+    <path class="cls-4" d="M219.33,328.07s20.24-13.35,50.81-9.89" transform="translate(-32 -62.38)"/>
+  </g>
+</svg>

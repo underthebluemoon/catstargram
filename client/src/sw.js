@@ -42,9 +42,77 @@ registerRoute(
 // -----------------------------------------
 registerRoute(
   //          ↱ 요청 url    ↱ domain
-  ({request, url}) => url.origin === import.meta.env.VITE_SEVER_URL && request.method === 'GET',
+  ({request, url}) => url.origin === import.meta.env.VITE_SERVER_URL && request.method === 'GET',
   new StaleWhileRevalidate({
     cacheName: `${PREFIX}-api-cache`,
     networkTimeoutSeconds: 3,
   })
 );
+
+// -----------------------------------------
+// ||     웹 푸시 핸들러
+// -----------------------------------------
+self.addEventListener('push', e => {
+  //     ↱ 객체 형태로 담김 (payload가 담김)
+  const data = e.data.json();
+
+  self.registration.showNotification(
+    data.title,
+    {  // options
+      body: data.message,
+      icon: '/icons/catstargram-white.png',
+      data: {
+        targetUrl: data.data.targetUrl
+      }
+    }
+  );
+})
+
+// -----------------------------------------
+// ||     웹 푸시 클릭 이벤트
+// -----------------------------------------
+// 웹 푸시의 이벤트는 하나 뿐 : 알림 클릭
+self.addEventListener('notificationclick', e => {
+  // 1. 푸시 창 닫기
+  e.notification.close(); 
+
+  // 2. 페이로드에서 백엔드가 전달한 전체 URL 추출 (웹 푸시 핸들러에서 받음)
+  const openUrl = e.notification.data.targetUrl;
+
+  // 3. Origin 획득
+  const origin = self.location.origin;
+
+  //  ↱ 
+  e.waitUntil(
+    // clients의 구조
+    // [
+    //  //  ↱ 브라우저 탭 하나
+    //   WindowClient = {
+    //     focused: false,
+    //     frameType: "top-level",
+    //     id: "f6e4c645-16ba-4ebe-9600-443b91141742",
+    //     type: "window",
+    //     url: "http://localhost:3000/posts",
+    //     visibilityState: "visible"
+    //   },
+    //   // ...
+    // ]
+    //                       ↱ 브라우저 탭     ↱ sw가 업데이트로 관리 대상에서 제외된 경우도 포함
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true })
+    .then(clients => {
+      // 앱에서 루트 도메인 탭이 있는지 확인         ↱ 도메인이 같은 탭 찾음 
+      const myClient = clients.find(client => client.url.startsWith(origin));
+
+      // 4-1. 재활용할 탭이 있다면 포커스 및 네이베이트 처리 
+      if(myClient) {
+        myClient.focus();
+        return myClient.navigate(openUrl);
+      }
+
+      // 4-2. 재활용할 탭이 없다면 새창으로 열기
+      if(self.clients.openWindow) {
+        return self.clients.openWindow(openUrl);
+      }
+    })
+  );
+})

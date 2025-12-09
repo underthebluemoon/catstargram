@@ -51,6 +51,7 @@ export default function usePushNotifications() {
           }
           //                                     ↱ 
         } else if(Notification?.permission === 'denied') {
+            // 새로고침 시 모달이 반복해서 뜸 → 반 강제하기 위해 의도한 것 : 허용하는 방식을 안내
             alert('알림을 거부하신 이력이 있습니다.\n알림 허용을 하지 않으면 서비스 이용에 제한이 있습니다.');
             return false;
         } else {
